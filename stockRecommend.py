@@ -27,6 +27,7 @@ print(getStocks(12,'technology'))
 
 
 # https://www.investing.com/news/stock-market-news/earnings-call-axcelis-technologies-reports-strong-q3-2023-results-bullish-on-silicon-carbide-market-93CH-3220157
+# Get the content of the individual article
 def articleContent(link):
     html = openURL(link)
     contents = html.select('div.WYSIWYG.articlePage > p')
@@ -41,7 +42,7 @@ def articleContent(link):
     print((goodContent))
 # articleContent('https://www.investing.com/news/axcelis-earnings-beat-by-036-revenue-topped-estimates-3142440')
 # Researching what the news of the stock say 
-# Going into article page
+# Getting the articles and the links within them
 def getArticles(name,ticker,page=2):
     # get to the search page and scrape the company news
     baseURL = 'https://www.investing.com'
@@ -62,7 +63,8 @@ def getArticles(name,ticker,page=2):
                 linkToVisit.append(baseURL+ article['href'])
         for article in linkToVisit:
             print(article)
-# getArticles('Axcelis','ACLS',2)
+getArticles('Axcelis','ACLS',2)
+articleContent('https://www.investing.com/news/assorted/axcelis-technologies-announces-cfo-change-432SI-3167573')
 # articleContent('https://www.investing.com/news/stock-market-news/earnings-call-axcelis-technologies-reports-strong-q3-2023-results-bullish-on-silicon-carbide-market-93CH-3220157')
 
 
