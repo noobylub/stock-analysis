@@ -1,35 +1,26 @@
-import requests
-from bs4 import BeautifulSoup
+from urllib.request import Request, urlopen
+from bs4 import BeautifulSoup as soup
 
-def scrape_article(url):
-    # Send a GET request to the URL
-    response = requests.get(url)
-    
-    # Check if request was successful (status code 200)
-    if response.status_code == 200:
-        # Parse HTML content
-        soup = BeautifulSoup(response.content, 'html.parser')
-        
-        # Find the article title
-        title = soup.find('h1', class_='articleHeader').text.strip()
-        
-        # Find the article content
-        content = soup.find('div', class_='WYSIWYG articlePage').text.strip()
-        
-        return title, content
-    else:
-        print("Failed to retrieve the article. Status code:", response.status_code)
-        return None, None
+# URL of the page
+url = "https://finviz.com/screener.ashx?v=111&f=cap_midover,fa_pe_u10,sec_technology&ft=2"
 
-# URL of the article
-article_url = 'https://www.investing.com/news/assorted/axcelis-technologies-announces-additional-200m-share-buyback-432SI-3172542'
+# Create a request object
+req = Request(url, headers={'User-Agent': 'Mozilla/5.0'})
 
-# Scrape the article
-title, content = scrape_article(article_url)
+# Open the URL and read the HTML content
+webpage = urlopen(req).read()
 
-# Print the title and content
-if title and content:
-    print("Title:", title)
-    print("\nContent:", content)
-else:
-    print("Failed to retrieve the article.")
+# Parse the HTML content
+page_soup = soup(webpage, "html.parser")
+
+# Find all elements with valign="top"
+valign_top_elements = page_soup.find_all(valign="top")
+
+# Select the third td within each valign="top" element
+for element in valign_top_elements:
+    td_elements = element.find_all("td")
+    if len(td_elements) >= 3:  # Ensure at least 3 td elements exist
+        first_td = td_elements[1].text.strip()
+        third_td = td_elements[2].text.strip()
+        print(third_td)
+        print(first_td)
