@@ -8,7 +8,7 @@ from stockRecommend import getStocks
 
 app = Flask(__name__)
 
-usersList = ['Aaron', 'Bianca', 'Cat', 'Danny', 'Elena']
+
 
 
 
@@ -25,18 +25,6 @@ def get_stocks():
 
 
 
-@app.route('/user/<int:id>', methods=['GET'])
-def userById(id):
-    return jsonify({ 'username': usersList[id]  })
 
-@app.route('/user/<string:name>', methods=['GET'])
-def getUserByName(name):
-    # Show some user information
-    return "Some info"
-
-@app.route('/user/<string:name>', methods=['POST'])
-def addUserByName(name):
-    usersList.append(name)
-    return jsonify({ 'message': 'New user added'  })
 
 app.run()
