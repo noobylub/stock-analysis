@@ -31,13 +31,14 @@ def getStocks(peRatio, sector):
     return allStocks
 print("stock list")
 # We can just output  5 stocks
-# print(getStocks(12,'technology'))
+print(getStocks(12,'technology')[0])
 
 
 
 # https://www.investing.com/news/stock-market-news/earnings-call-axcelis-technologies-reports-strong-q3-2023-results-bullish-on-silicon-carbide-market-93CH-3220157
 # Get the content of the individual article
 def articleContent(link):
+    
     # Open the provided link and parse the HTML content
     html = openURL(link)
     
@@ -66,12 +67,13 @@ def articleContent(link):
 
 
 # Call the articleContent function with a sample link
-print(articleContent('https://www.investing.com/news/stock-market-news/sealsq-introduces-quantumresistant-crypto-wallet-feature-93CH-3324951'))
+# print(articleContent('https://www.investing.com/news/stock-market-news/earnings-call-acm-research-posts-robust-q1-earnings-targets-global-expansion-93CH-3432366'))
 
 
 # Researching what the news of the stock say 
 # Getting the articles and the links within them
 def getArticles(name,ticker,page=2):
+   
     # get to the search page and scrape the company news
     baseURL = 'https://www.investing.com'
     url = baseURL+'/search/?q='+ ticker
@@ -89,8 +91,10 @@ def getArticles(name,ticker,page=2):
             # check if article has the stock name and is not pro
             if(artContainName == True and artPro == False):
                 linkToVisit.append(baseURL+ article['href'])
-        for article in linkToVisit:
-            print(article)
+
+        # for article in linkToVisit:
+        #     print(article)
+        return linkToVisit;
 
 # Combining the stocks you got and the articles of those stocks 
 # def getAllArticles(peRatio, sector):
@@ -103,7 +107,7 @@ def getArticles(name,ticker,page=2):
 
     
 
-# getArticles('Concentrix', 'CNXC',1)
+# getArticles('ACM', 'ACMR',1)
 # articleContent('https://www.investing.com/news/assorted/concentrix--webhelp-rebrands-as-concentrix-432SI-3389334')
 # articleContent('https://www.investing.com/news/stock-market-news/earnings-call-axcelis-technologies-reports-strong-q3-2023-results-bullish-on-silicon-carbide-market-93CH-3220157')
 # getAllArticles(10, 'technology')

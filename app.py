@@ -2,7 +2,7 @@
 from flask import Flask, jsonify, request
 from urllib.request import Request, urlopen
 from bs4 import BeautifulSoup as soup
-from stockRecommend import getStocks
+from dataExtraction import getStocks
 
 
 
@@ -12,7 +12,7 @@ app = Flask(__name__)
 
 
 
-# Getting stocks that meet a certain criteria
+# Getting stocks that meet a certain criteria described in the 
 @app.route('/stocks', methods=['GET'])
 def get_stocks():
     peRatio = request.args.get('peRatio')
